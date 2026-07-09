@@ -1,0 +1,12 @@
+scoring:
+  freshness_weight: 0.3
+  completeness_weight: 0.3
+  accuracy_weight: 0.2
+  consistency_weight: 0.2
+
+decay:
+  enabled: true
+  half_life_hours: 24
+  floor_score: 0.1
+
+minimum_records_for_scoring: 10

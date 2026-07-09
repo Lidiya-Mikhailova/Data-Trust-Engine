@@ -1,0 +1,24 @@
+export:
+  enabled: false
+  endpoint: ""
+  interval_seconds: 60
+
+pipeline:
+  bronze_records_ingested: counter
+  silver_records_passed: counter
+  silver_records_failed: counter
+  gold_records_exported: counter
+  quarantine_records_added: counter
+  quarantine_records_reprocessed: counter
+  pipeline_duration_seconds: histogram
+
+sources:
+  source_health_state: gauge
+  source_latency_ms: histogram
+  source_error_rate: gauge
+
+trust:
+  trust_score: gauge
+  confidence_score: gauge
+  quality_score: gauge
+  reconciliation_match_rate: gauge

@@ -1,0 +1,15 @@
+quality:
+  max_null_rate_percent: 5.0
+  max_duplicate_rate_percent: 1.0
+  min_schema_conformance_percent: 99.0
+  max_anomaly_score: 3.0
+
+trust:
+  high: 0.8
+  medium: 0.5
+  low: 0.0
+
+anomaly:
+  volume_spike_factor: 3.0
+  volume_drop_factor: 0.33
+  drift_threshold_percent: 10.0

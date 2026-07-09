@@ -1,0 +1,27 @@
+channels:
+  log:
+    enabled: true
+  stdout:
+    enabled: true
+
+rules:
+  circuit_breaker_tripped:
+    severity: critical
+    channels: [log, stdout]
+  circuit_breaker_recovered:
+    severity: info
+    channels: [log]
+  failover_occurred:
+    severity: warning
+    channels: [log, stdout]
+  trust_score_dropped:
+    severity: warning
+    channels: [log]
+    threshold_below: 0.5
+  pipeline_failed:
+    severity: critical
+    channels: [log, stdout]
+  quarantine_threshold_exceeded:
+    severity: warning
+    channels: [log]
+    threshold_above: 1000

@@ -1,0 +1,34 @@
+[project]
+name = "data-trust-engine"
+version = "0.1.0"
+description = "Production-grade Data Engineering platform for building reliable ETL pipelines with automatic source failover, trust-based decision making, and observability"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 120
+
+[tool.black]
+line-length = 120
+
+[tool.pytest.ini_options]
+minversion = "8.3"
+testpaths = ["Tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    'ignore:.*The loop argument is deprecated.*:DeprecationWarning',
+    'ignore:.*coroutine.*was never awaited.*:RuntimeWarning',
+]
+
+[tool.coverage.run]
+source = ["API", "Config", "CoreETL", "DataStandardization", "DataTrust", "DecisionEngine", "Observability", "Orchestration", "Sources", "Storage"]
+omit = ["Tests/*", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "def __repr__", "raise NotImplementedError"]

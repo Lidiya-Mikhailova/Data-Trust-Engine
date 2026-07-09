@@ -1,0 +1,7 @@
+auto_switch_on_circuit_open: true
+auto_switch_on_trust_below: 0.5
+auto_switch_on_latency_above_ms: 10000
+notify_on_switch: true
+
+manual_override_allowed: true
+manual_override_expiry_minutes: 120

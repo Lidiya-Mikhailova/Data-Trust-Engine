@@ -1,0 +1,15 @@
+strategy: trust_first
+
+fallback_chain:
+  - primary
+  - secondary
+
+selection_criteria:
+  primary:
+    min_trust_score: 0.7
+    max_latency_ms: 5000
+  secondary:
+    min_trust_score: 0.5
+    max_latency_ms: 10000
+
+cooldown_seconds_after_failover: 60

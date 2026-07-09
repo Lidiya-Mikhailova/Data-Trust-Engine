@@ -1,0 +1,15 @@
+comparison_fields:
+  - field_name: "*"
+    tolerance_percent: 1.0
+
+match_required_fields:
+  - id
+  - timestamp
+
+mismatch_handling:
+  prefer_source: primary
+  log_conflict: true
+  flag_for_review: false
+
+scheduling:
+  cron: "0 2 * * *"

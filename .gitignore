@@ -1,0 +1,48 @@
+# Environments
+.env
+.env.*
+!.env.example
+
+# Virtual environment
+.venv/
+.venv.*
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Cloud credentials (AWS, GCP, etc.)
+credentials*.json
+service-account*.json
+key*.json
+*.pem
+*.key
+*.p12
+.aws/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# macOS
+.DS_Store
+
+# Jupyter notebooks (can contain secrets in outputs)
+notebooks/
+*.ipynb
+
+AGENTS.md
