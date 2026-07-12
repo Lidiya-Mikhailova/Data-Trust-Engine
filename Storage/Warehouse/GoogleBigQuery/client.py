@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from typing import Any
 
 from Storage.Warehouse.GoogleBigQuery.loader import BigQueryLoader
@@ -105,8 +106,6 @@ class BigQueryClient:
         )
 
     async def table_exists(self, table: str) -> bool:
-        from google.cloud import bigquery  # noqa: WPS433
-
         client = self._get_client()
         table_ref = f"{self._project_id}.{self._dataset}.{table}"
         try:
@@ -114,9 +113,6 @@ class BigQueryClient:
             return True
         except Exception:
             return False
-
-
-import asyncio  # noqa: E402
 
 
 class BigQueryWarehouse(WarehouseStorage):

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 from google.cloud.bigquery import SchemaField  # type: ignore[import-untyped]
 
 _PYTHON_TO_BQ: dict[type, str] = {
