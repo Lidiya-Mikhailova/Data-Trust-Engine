@@ -5,7 +5,6 @@ from unittest.mock import patch
 import pytest
 
 from Config import AppSettings, LogSettings, S3Settings, BigQuerySettings
-from Config.bigquery import BigQuerySettings as BQReexport
 
 
 class TestAppSettings:
@@ -88,3 +87,9 @@ class TestProductionValidation:
         with patch.dict("os.environ", env, clear=False):
             with pytest.raises(ValueError, match="Missing required configuration"):
                 AppSettings.load()
+
+
+class TestBigQueryReexport:
+    def test_bigquery_settings_reexport(self):
+        from Config.bigquery import BigQuerySettings
+        assert BigQuerySettings is not None
