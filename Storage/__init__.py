@@ -1,7 +1,7 @@
-from Storage.interfaces import AbstractDataLake, AbstractWarehouse, AbstractObservabilityDB
+from Storage.interfaces import DataLakeStorage, WarehouseStorage, ObservabilityStorage
 
 __all__ = [
-    "AbstractDataLake",
-    "AbstractWarehouse",
-    "AbstractObservabilityDB",
+    "DataLakeStorage",
+    "WarehouseStorage",
+    "ObservabilityStorage",
 ]

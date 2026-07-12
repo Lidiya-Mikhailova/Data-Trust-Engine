@@ -1,3 +1,3 @@
-from Storage import AbstractWarehouse
+from Storage import WarehouseStorage
 
-__all__ = ["AbstractWarehouse"]
+__all__ = ["WarehouseStorage"]

@@ -1,24 +1,23 @@
 from __future__ import annotations
 
-from Storage.interfaces import AbstractDataLake, AbstractWarehouse, AbstractObservabilityDB
+import pytest
+
+from Storage.interfaces import DataLakeStorage, WarehouseStorage, ObservabilityStorage
 
 
-class TestAbstractDataLake:
+class TestDataLakeStorage:
     def test_cannot_instantiate(self):
         with pytest.raises(TypeError):
-            AbstractDataLake()  # type: ignore
+            DataLakeStorage()  # type: ignore
 
 
-class TestAbstractWarehouse:
+class TestWarehouseStorage:
     def test_cannot_instantiate(self):
         with pytest.raises(TypeError):
-            AbstractWarehouse()  # type: ignore
+            WarehouseStorage()  # type: ignore
 
 
-class TestAbstractObservabilityDB:
+class TestObservabilityStorage:
     def test_cannot_instantiate(self):
         with pytest.raises(TypeError):
-            AbstractObservabilityDB()  # type: ignore
-
-
-import pytest  # noqa: E402 (isort split)
+            ObservabilityStorage()  # type: ignore

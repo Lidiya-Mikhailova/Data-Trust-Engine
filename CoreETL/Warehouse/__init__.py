@@ -1,4 +1,4 @@
-from Storage import AbstractWarehouse
+from Storage import WarehouseStorage
 from Storage.Warehouse.GoogleBigQuery import BigQueryWarehouse
 
-__all__ = ["AbstractWarehouse", "BigQueryWarehouse"]
+__all__ = ["WarehouseStorage", "BigQueryWarehouse"]
