@@ -31,4 +31,4 @@ source = ["API", "Config", "CoreETL", "DataStandardization", "DataTrust", "Decis
 omit = ["Tests/*", "*/__init__.py"]
 
 [tool.coverage.report]
-exclude_lines = ["pragma: no cover", "def __repr__", "raise NotImplementedError"]
+exclude_lines = ["pragma: no cover", "def __repr__", "raise NotImplementedError", "\\.\\."]

@@ -188,6 +188,27 @@ class TestCircuitBreakerHalfOpenState:
         assert cb.state == CircuitState.OPEN
 
 
+class TestCircuitBreakerErrorPassthrough:
+    def test_sync_call_reraises_circuit_breaker_error(self):
+        cb = CircuitBreaker("source-a", failure_threshold=5)
+
+        def raise_cb_error():
+            raise CircuitBreakerError("original error")
+
+        with pytest.raises(CircuitBreakerError, match="original error"):
+            cb.call(raise_cb_error)
+
+    @pytest.mark.asyncio
+    async def test_async_call_reraises_circuit_breaker_error(self):
+        cb = CircuitBreaker("source-a", failure_threshold=5)
+
+        async def raise_cb_error():
+            raise CircuitBreakerError("original error")
+
+        with pytest.raises(CircuitBreakerError, match="original error"):
+            await cb.async_call(raise_cb_error)
+
+
 class TestAsyncCircuitBreaker:
     @pytest.mark.asyncio
     async def test_successful_async_call(self):
