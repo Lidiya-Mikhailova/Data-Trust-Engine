@@ -45,4 +45,4 @@ key*.json
 notebooks/
 *.ipynb
 
-AGENTS.md
+Agents.md
