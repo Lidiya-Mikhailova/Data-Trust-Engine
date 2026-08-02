@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime, timezone
 from typing import Any
 
 from Storage.DataLake.AmazonS3.lifecycle import S3Lifecycle
@@ -112,3 +113,11 @@ class S3DataLake(DataLakeStorage):
 
     async def list_raw(self, prefix: str) -> list[str]:
         return await self._reader.list_raw(prefix)
+
+    async def healthcheck(self) -> dict[str, Any]:
+        try:
+            await self._client.list_objects("")
+            status = "healthy"
+        except Exception:
+            status = "degraded"
+        return {"status": status, "timestamp": datetime.now(timezone.utc).isoformat()}

@@ -1,7 +1,17 @@
-from Storage.interfaces import DataLakeStorage, WarehouseStorage, ObservabilityStorage
+from Storage.interfaces import (
+    DataLakeStorage,
+    DataLakeStorageProtocol,
+    WarehouseStorage,
+    WarehouseStorageProtocol,
+    ObservabilityStorage,
+    ObservabilityStorageProtocol,
+)
 
 __all__ = [
     "DataLakeStorage",
+    "DataLakeStorageProtocol",
     "WarehouseStorage",
+    "WarehouseStorageProtocol",
     "ObservabilityStorage",
+    "ObservabilityStorageProtocol",
 ]

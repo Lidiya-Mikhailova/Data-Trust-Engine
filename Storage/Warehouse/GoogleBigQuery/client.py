@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from datetime import datetime, timezone
 from typing import Any
 
 from Storage.Warehouse.GoogleBigQuery.loader import BigQueryLoader
@@ -155,3 +156,11 @@ class BigQueryWarehouse(WarehouseStorage):
 
     async def table_exists(self, table: str) -> bool:
         return await self._loader.table_exists(table)
+
+    async def healthcheck(self) -> dict[str, Any]:
+        try:
+            await self._client.query("SELECT 1")
+            status = "healthy"
+        except Exception:
+            status = "degraded"
+        return {"status": status, "timestamp": datetime.now(timezone.utc).isoformat()}
