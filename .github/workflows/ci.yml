@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: "3.9"
           cache: pip
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt -r requirements-dev.txt
       - run: ruff check .
 
   test:
@@ -29,5 +29,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt -r requirements-dev.txt
       - run: pytest Tests/ --cov --cov-report=term-missing --cov-fail-under=80
