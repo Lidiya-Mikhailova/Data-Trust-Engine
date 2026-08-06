@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0] - 2026-08-06
+
+### Added
+
+- **ADR-008**: Data standardization is reversible and lineage-aware
+- **DataStandardization module**: canonical schema (`FieldSpec`/`Schema`) with aliases, `FieldMapper`, `Normalizer` (whitespace, trim, casefold, prefix/suffix, date reformat), `Validator`, and `standardize()` entry point producing a `CanonicalArtifact` that records reversible/lossy transformations for exact original-record reconstruction
+- **Tests**: 34 unit tests for DataStandardization (100% module coverage)
+
+### Changed
+
+- **requirements.txt**: removed unused runtime deps (pandas, pyarrow, sqlalchemy, requests, python-dotenv) that are not imported anywhere in source; production file now contains only dependencies required by the application
+- **requirements-dev.txt**: new file for test and lint tooling (pytest family, httpx, ruff)
+- **CI**: both `lint` and `test` jobs now install `-r requirements.txt -r requirements-dev.txt`
+
 ## [0.2.0] - 2026-07-09
 
 ### Added
