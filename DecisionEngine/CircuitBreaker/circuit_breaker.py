@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import time
 from collections.abc import Awaitable, Callable
-from typing import Any, Generic, Optional, TypeVar, Union
+from typing import Any, Generic, TypeVar, Union
 
 from DecisionEngine.CircuitBreaker.models import CircuitBreakerConfig
 from DecisionEngine.CircuitBreaker.source_state import CircuitState, SourceHealthState
@@ -65,9 +65,7 @@ class CircuitBreaker(Generic[T]):
             raise
         except Exception as exc:
             self._on_failure()
-            raise CircuitBreakerError(
-                f"Operation failed for source '{self._state.source_id}': {exc}"
-            ) from exc
+            raise CircuitBreakerError(f"Operation failed for source '{self._state.source_id}': {exc}") from exc
 
     async def async_call(self, operation: Callable[[], Awaitable[T]]) -> T:
         self._check_open()
@@ -79,9 +77,7 @@ class CircuitBreaker(Generic[T]):
             raise
         except Exception as exc:
             self._on_failure()
-            raise CircuitBreakerError(
-                f"Async operation failed for source '{self._state.source_id}': {exc}"
-            ) from exc
+            raise CircuitBreakerError(f"Async operation failed for source '{self._state.source_id}': {exc}") from exc
 
     def update_from_probe(self, probe: HealthProbeResult) -> None:
         if probe.status == ProbeStatus.HEALTHY:

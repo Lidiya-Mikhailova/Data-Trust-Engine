@@ -22,11 +22,7 @@ class FailoverRouter:
         return self._allow_failover
 
     def get_available_sources(self) -> list[str]:
-        return [
-            source_id
-            for source_id, cb in self._cbs.items()
-            if cb.state != CircuitState.OPEN
-        ]
+        return [source_id for source_id, cb in self._cbs.items() if cb.state != CircuitState.OPEN]
 
     def get_preferred_source(self, source_id: str) -> Optional[str]:
         cb = self._cbs.get(source_id)

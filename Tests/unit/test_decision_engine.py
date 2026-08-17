@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import time
-from unittest.mock import AsyncMock
 
 import pytest
 
@@ -9,7 +8,7 @@ from DecisionEngine.Alerts import AlertManager
 from DecisionEngine.CircuitBreaker import CircuitBreaker, CircuitBreakerConfig, CircuitState
 from DecisionEngine.CircuitBreaker.config_loader import load_all_configs, load_config_from_yaml
 from DecisionEngine.Core.decision_engine import DecisionEngine
-from DecisionEngine.Core.models import DecisionAction, DecisionRequest, DecisionResult
+from DecisionEngine.Core.models import DecisionAction, DecisionRequest
 from DecisionEngine.HealthCheck.models import HealthProbeResult, ProbeStatus
 from DecisionEngine.Routing import FailoverRouter, SwitchRules
 from DecisionEngine.StateStore import CBStateStore
@@ -185,7 +184,9 @@ class TestCircuitBreakerOpenState:
 
 class TestCircuitBreakerHalfOpenState:
     def test_success_threshold_closes_circuit(self):
-        config = CircuitBreakerConfig(failure_threshold=1, success_threshold=2, recovery_timeout=0.05, half_open_max_calls=2)
+        config = CircuitBreakerConfig(
+            failure_threshold=1, success_threshold=2, recovery_timeout=0.05, half_open_max_calls=2
+        )
         cb = CircuitBreaker("source-a", config)
 
         def fail():
@@ -227,7 +228,9 @@ class TestCircuitBreakerHalfOpenState:
         assert cb.state == CircuitState.OPEN
 
     def test_half_open_max_calls_blocks_excess(self):
-        config = CircuitBreakerConfig(failure_threshold=1, success_threshold=3, recovery_timeout=0.05, half_open_max_calls=1)
+        config = CircuitBreakerConfig(
+            failure_threshold=1, success_threshold=3, recovery_timeout=0.05, half_open_max_calls=1
+        )
         cb = CircuitBreaker("source-a", config)
 
         def fail():
@@ -249,7 +252,9 @@ class TestCircuitBreakerHalfOpenState:
             cb.call(ok)
 
     def test_half_open_calls_reset_on_transition_to_closed(self):
-        config = CircuitBreakerConfig(failure_threshold=1, success_threshold=2, recovery_timeout=0.05, half_open_max_calls=5)
+        config = CircuitBreakerConfig(
+            failure_threshold=1, success_threshold=2, recovery_timeout=0.05, half_open_max_calls=5
+        )
         cb = CircuitBreaker("source-a", config)
 
         def fail():
@@ -335,7 +340,9 @@ class TestAsyncCircuitBreaker:
 
     @pytest.mark.asyncio
     async def test_async_half_open_max_calls(self):
-        config = CircuitBreakerConfig(failure_threshold=1, success_threshold=3, recovery_timeout=0.05, half_open_max_calls=1)
+        config = CircuitBreakerConfig(
+            failure_threshold=1, success_threshold=3, recovery_timeout=0.05, half_open_max_calls=1
+        )
         cb = CircuitBreaker("source-a", config)
 
         async def fail():
@@ -359,20 +366,30 @@ class TestAsyncCircuitBreaker:
 class TestUpdateFromProbe:
     def test_healthy_probe_stays_closed(self):
         cb = CircuitBreaker("source-a")
-        probe = HealthProbeResult(source_id="source-a", status=ProbeStatus.HEALTHY, latency_ms=50.0, checked_at=time.time())
+        probe = HealthProbeResult(
+            source_id="source-a", status=ProbeStatus.HEALTHY, latency_ms=50.0, checked_at=time.time()
+        )
         cb.update_from_probe(probe)
         assert cb.state == CircuitState.CLOSED
 
     def test_unhealthy_probe_increments_failure(self):
         cb = CircuitBreaker("source-a", CircuitBreakerConfig(failure_threshold=3))
-        probe = HealthProbeResult(source_id="source-a", status=ProbeStatus.UNREACHABLE, latency_ms=5000.0, checked_at=time.time(), error_message="timeout")
+        probe = HealthProbeResult(
+            source_id="source-a",
+            status=ProbeStatus.UNREACHABLE,
+            latency_ms=5000.0,
+            checked_at=time.time(),
+            error_message="timeout",
+        )
         cb.update_from_probe(probe)
         assert cb.state == CircuitState.CLOSED
         assert cb.health_state.failure_count == 1
 
     def test_unhealthy_probe_trips_to_open(self):
         cb = CircuitBreaker("source-a", CircuitBreakerConfig(failure_threshold=2))
-        probe = HealthProbeResult(source_id="source-a", status=ProbeStatus.UNREACHABLE, latency_ms=5000.0, checked_at=time.time())
+        probe = HealthProbeResult(
+            source_id="source-a", status=ProbeStatus.UNREACHABLE, latency_ms=5000.0, checked_at=time.time()
+        )
         cb.update_from_probe(probe)
         assert cb.state == CircuitState.CLOSED
         cb.update_from_probe(probe)
@@ -380,8 +397,12 @@ class TestUpdateFromProbe:
 
     def test_healthy_probe_resets_failure_counter(self):
         cb = CircuitBreaker("source-a", CircuitBreakerConfig(failure_threshold=3))
-        probe_fail = HealthProbeResult(source_id="source-a", status=ProbeStatus.UNREACHABLE, latency_ms=5000.0, checked_at=time.time())
-        probe_ok = HealthProbeResult(source_id="source-a", status=ProbeStatus.HEALTHY, latency_ms=50.0, checked_at=time.time())
+        probe_fail = HealthProbeResult(
+            source_id="source-a", status=ProbeStatus.UNREACHABLE, latency_ms=5000.0, checked_at=time.time()
+        )
+        probe_ok = HealthProbeResult(
+            source_id="source-a", status=ProbeStatus.HEALTHY, latency_ms=50.0, checked_at=time.time()
+        )
         cb.update_from_probe(probe_fail)
         cb.update_from_probe(probe_ok)
         assert cb.health_state.failure_count == 0

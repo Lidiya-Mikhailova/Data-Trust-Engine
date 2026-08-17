@@ -7,7 +7,7 @@ from DecisionEngine.Alerts import AlertManager
 from DecisionEngine.CircuitBreaker import CircuitBreaker, CircuitBreakerConfig, CircuitState
 from DecisionEngine.CircuitBreaker.config_loader import load_config_from_yaml
 from DecisionEngine.Core.models import DecisionAction, DecisionRequest, DecisionResult
-from DecisionEngine.HealthCheck import HealthCheckProbe, HealthProbeResult
+from DecisionEngine.HealthCheck import HealthProbeResult
 from DecisionEngine.Routing import FailoverRouter, SwitchRules
 from DecisionEngine.StateStore import CBStateStore
 
@@ -39,9 +39,7 @@ class DecisionEngine:
             circuit_breakers=self._cbs,
             allow_failover=self._switch_rules.trust_score_threshold > 0,
         )
-        self._previous_states: dict[str, CircuitState] = {
-            sid: CircuitState.CLOSED for sid in source_ids
-        }
+        self._previous_states: dict[str, CircuitState] = {sid: CircuitState.CLOSED for sid in source_ids}
 
     def decide(self, request: DecisionRequest) -> DecisionResult:
         source_id = request.source_id
