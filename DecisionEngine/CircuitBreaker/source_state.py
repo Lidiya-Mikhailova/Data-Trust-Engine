@@ -3,7 +3,7 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Any, Optional
 
 
 class CircuitState(Enum):
@@ -45,3 +45,28 @@ class SourceHealthState:
         self.last_failure_time = None
         self.last_success_time = None
         self.last_state_change = time.time()
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "source_id": self.source_id,
+            "state": self.state.value,
+            "failure_count": self.failure_count,
+            "success_count": self.success_count,
+            "consecutive_success_in_half_open": self.consecutive_success_in_half_open,
+            "last_failure_time": self.last_failure_time,
+            "last_success_time": self.last_success_time,
+            "last_state_change": self.last_state_change,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> SourceHealthState:
+        return cls(
+            source_id=data["source_id"],
+            state=CircuitState(data["state"]),
+            failure_count=data.get("failure_count", 0),
+            success_count=data.get("success_count", 0),
+            consecutive_success_in_half_open=data.get("consecutive_success_in_half_open", 0),
+            last_failure_time=data.get("last_failure_time"),
+            last_success_time=data.get("last_success_time"),
+            last_state_change=data.get("last_state_change", time.time()),
+        )

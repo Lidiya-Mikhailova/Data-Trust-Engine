@@ -1,14 +1,15 @@
 defaults:
   failure_threshold: 5
   success_threshold: 2
-  recovery_timeout_seconds: 30
+  recovery_timeout: 30
+  half_open_max_calls: 1
 
 per_source:
   primary:
     failure_threshold: 5
     success_threshold: 2
-    recovery_timeout_seconds: 30
+    recovery_timeout: 30
   secondary:
     failure_threshold: 3
     success_threshold: 3
-    recovery_timeout_seconds: 15
+    recovery_timeout: 15

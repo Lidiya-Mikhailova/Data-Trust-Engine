@@ -7,6 +7,9 @@ uvicorn>=0.34.0
 pydantic>=2.10.0
 pydantic-settings>=2.7.0
 
+# Configuration
+pyyaml>=6.0
+
 # AWS S3
 boto3>=1.36.0
 
@@ -20,3 +23,6 @@ structlog>=25.1.0
 dagster>=1.10.0
 dagster-webserver>=1.10.0
 dagster-postgres>=0.25.0
+
+# Data Processing Pipeline
+apache-beam>=2.69.0

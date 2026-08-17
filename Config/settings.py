@@ -101,7 +101,8 @@ class AppSettings(BaseSettings):
         self.circuit_breaker = CircuitBreakerSettings(
             CIRCUIT_BREAKER_FAILURE_THRESHOLD=int(env.get("CIRCUIT_BREAKER_FAILURE_THRESHOLD", self.circuit_breaker.failure_threshold)),
             CIRCUIT_BREAKER_SUCCESS_THRESHOLD=int(env.get("CIRCUIT_BREAKER_SUCCESS_THRESHOLD", self.circuit_breaker.success_threshold)),
-            CIRCUIT_BREAKER_TIMEOUT=int(env.get("CIRCUIT_BREAKER_TIMEOUT", self.circuit_breaker.timeout)),
+            CIRCUIT_BREAKER_RECOVERY_TIMEOUT=int(env.get("CIRCUIT_BREAKER_RECOVERY_TIMEOUT", self.circuit_breaker.recovery_timeout)),
+            CIRCUIT_BREAKER_HALF_OPEN_MAX_CALLS=int(env.get("CIRCUIT_BREAKER_HALF_OPEN_MAX_CALLS", self.circuit_breaker.half_open_max_calls)),
             TRUST_SCORE_THRESHOLD=float(env.get("TRUST_SCORE_THRESHOLD", self.circuit_breaker.trust_score_threshold)),
             ALLOW_SOURCE_FAILOVER=env.get("ALLOW_SOURCE_FAILOVER", str(self.circuit_breaker.allow_source_failover)).lower() == "true",
         )
